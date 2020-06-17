@@ -12,4 +12,14 @@ describe('<Form />', () => {
 
         expect(app.state('url')).toBe('www');
     });
+
+    it('displays users input in output area on submit', () => {
+        let app = mount(<Form />);
+
+        // let result = app.find('span.url');
+        let input = app.find('input');
+        input.simulate('change', {target: {value: 'www'}});
+
+        expect(app.find('span.url')).toBe('www');
+    })
 })
