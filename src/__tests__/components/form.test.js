@@ -29,4 +29,39 @@ describe('<Form />', () => {
 
         expect(app.find('span.url').text()).toBe('www');
     })
+
+    it('resets form on submit', () => {
+        let app = mount(<Form />);
+
+        let input = app.find('input');
+        input.simulate('change', {target: {value: 'www'}});
+
+        // simulate a click on method
+        let method = app.find('#get');
+        method.simulate('click');
+
+        // simulate click for submit
+        let form = app.find('form');
+        form.simulate('submit');
+
+        expect(input.props().value).toBeFalsy();
+    })
+
+    // it('method makes class active', () => {
+    //     let app = mount(<Form />);
+
+    //     let input = app.find('input');
+    //     input.simulate('change', {target: {value: 'www'}});
+
+    //     // simulate a click on method
+    //     let method = app.find('#get');
+    //     method.simulate('click');
+
+    //     // simulate click for submit
+    //     let form = app.find('form');
+    //     form.simulate('submit');
+
+    //     expect(app.state('method')).toBe('get');
+    //     expect(app.find('#get').hasClass('active')).toBe(true);
+    // });
 })
