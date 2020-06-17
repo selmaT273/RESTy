@@ -16,10 +16,17 @@ describe('<Form />', () => {
     it('displays users input in output area on submit', () => {
         let app = mount(<Form />);
 
-        // let result = app.find('span.url');
         let input = app.find('input');
         input.simulate('change', {target: {value: 'www'}});
 
-        expect(app.find('span.url')).toBe('www');
+        // simulate a click on method
+        let method = app.find('#get');
+        method.simulate('click');
+
+        // simulate click for submit
+        let form = app.find('form');
+        form.simulate('submit');
+
+        expect(app.find('span.url').text()).toBe('www');
     })
 })
