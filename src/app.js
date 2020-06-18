@@ -7,14 +7,28 @@ import './app.scss';
 import Header from './components/header';
 import Footer from './components/footer';
 import Form from './components/form/form.js';
+import Results from './components/Results/results';
 
 class App extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      Results: {},
+    };
+  }
+
+  getFormData = data => {
+    this.setState({Results: data});
+  }
+
   render() {
     return (
       <React.Fragment>
         <Header />
-        <Form />
+        <Form saveData = {this.getFormData} />
         <Footer />
+        <Results data={this.state.Results} />
       </React.Fragment>
     );
   }

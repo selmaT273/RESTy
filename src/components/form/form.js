@@ -13,6 +13,32 @@ class Form extends React.Component {
     };
   }
 
+  async getData(){
+    // let result = await fetch(this.state.url);
+    // let header = [Response.headers.entries()];
+    // let body = await result.json();
+    // this.props.saveData(await Response.json());
+
+    // let endResult = body.map(r => ({
+    //   header: r.headers,
+    //   body: r.body,
+    // }))
+    let result = await fetch(this.state.url).then(async function(Response){
+      let headers = [];
+      for (var entry of Response.headers.entries()) {
+
+      headers.push(entry);
+
+      }
+
+      let endResult = { headersJson : headers, bodyJson: await Response.json()};
+
+      return endResult;
+    });
+
+    this.props.saveData(await result);
+  }
+
   handleSubmit = e => {
     e.preventDefault();
 
@@ -24,6 +50,9 @@ class Form extends React.Component {
         method: this.state.method,
       };
 
+      this.getData();
+
+      
       // Clear old settings
       let url = '';
       let method = '';
@@ -39,7 +68,6 @@ class Form extends React.Component {
   }
 
   handleChangeURL = e => {
-    // fetch here? 
     const url = e.target.value;
     this.setState({url});
   };
