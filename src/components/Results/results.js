@@ -6,7 +6,9 @@ export default function Results(props){
         <>
         <h2>Your Request Results:</h2>
             <span>
-                <ReactJson src={props.data} theme="eighties" />
+                <ReactJson src={props.header} theme="eighties" />
+                <ReactJson src={props.body} theme="eighties" />
+
             </span>
         </>    
     )

@@ -10,38 +10,13 @@ class Form extends React.Component {
       url: '',
       method: '',
       request: {},
+      result: props.onReceiveData
     };
   }
 
-  async getData(){
-    // let result = await fetch(this.state.url);
-    // let header = [Response.headers.entries()];
-    // let body = await result.json();
-    // this.props.saveData(await Response.json());
-
-    // let endResult = body.map(r => ({
-    //   header: r.headers,
-    //   body: r.body,
-    // }))
-    let result = await fetch(this.state.url).then(async function(Response){
-      let headers = [];
-      for (var entry of Response.headers.entries()) {
-
-      headers.push(entry);
-
-      }
-
-      let endResult = { Headers : headers, Body: await Response.json()};
-
-      return endResult;
-    });
-
-    this.props.saveData(await result);
-  }
-
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
-
+    let form = e.target;
     if ( this.state.url && this.state.method ) {
 
       // Make an object that would be suitable for superagent
@@ -50,7 +25,13 @@ class Form extends React.Component {
         method: this.state.method,
       };
 
-      this.getData();
+      let results = await fetch(request.url);
+      let body = await results.json();
+      let headers = {};
+      headers = [...results.headers.entries()];
+
+      this.props.onReceiveData(body, headers); 
+      // this.getData();
 
       
       // Clear old settings
@@ -58,7 +39,7 @@ class Form extends React.Component {
       let method = '';
 
       this.setState({request, url, method});
-      e.target.reset();
+      form.reset();
 
     }
 

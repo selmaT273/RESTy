@@ -14,21 +14,22 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      Results: {},
+      header: null,
+      body: null,
     };
   }
 
-  getFormData = data => {
-    this.setState({Results: data});
+  getFormData = (body, headers) => {
+    this.setState({body, header: headers});
   }
 
   render() {
     return (
       <React.Fragment>
         <Header />
-        <Form saveData = {this.getFormData} />
+        <Form onReceiveData = {this.getFormData} />
         <Footer />
-        <Results data={this.state.Results} />
+        <Results header={this.state.header} body={this.state.body} />
       </React.Fragment>
     );
   }
