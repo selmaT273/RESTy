@@ -39,6 +39,7 @@ class Form extends React.Component {
   }
 
   handleChangeURL = e => {
+    // fetch here? 
     const url = e.target.value;
     this.setState({url});
   };
