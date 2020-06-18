@@ -31,7 +31,7 @@ class Form extends React.Component {
 
       }
 
-      let endResult = { headersJson : headers, bodyJson: await Response.json()};
+      let endResult = { Headers : headers, Body: await Response.json()};
 
       return endResult;
     });
